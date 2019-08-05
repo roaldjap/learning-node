@@ -3,5 +3,6 @@ include ../mixins/_storeForm
 
 block content
     .inner
-       h1= title
-       +storeForm()
+        //pre= h.dump(store)
+        h1= title
+        +storeForm(store)

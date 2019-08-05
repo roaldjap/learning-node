@@ -1,13 +1,20 @@
 mixin storeForm(store = {})
-    form(action="/add" method="post" class="card")
+    //- action = `add/:store_id` - if there's an id
+    //- action = `add/` - if there's no id
+    form(action=`/add/${store._id || ''}` method="post" class="card")
         label(for="name") Name
-        input(type="text" name="name")
+        input(type="text" name="name" value=store.name)
         label(for="description") Description
-        textarea(name="description")
+        textarea(name="description")= store.description
         - const choices = ["Wifi", "Open Late", "Family Friendly", "Veg"]
+        
+        //- checking if the tag.includes is checked
+        - const tags = store.tags || [] 
+        
         ul.tags
             each choice in choices
                 .tag.tag__choice
-                    input(type="checkbox" id=choice value=choice name="tags")
+                    //- see tag.includes on line #9
+                    input(type="checkbox" id=choice value=choice name="tags" checked=(tags.includes(choice)))
                     label(for=choice)= choice
         input(type="submit" value="Save ↪ " class="button")
